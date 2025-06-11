@@ -42,8 +42,11 @@ RUN git clone https://github.com/bao-project/bao-helloworld.git /bao-helloworld
 
 WORKDIR /bao-helloworld
 
-COPY ./run.sh .
-# COPY . ./build_bao.sh
+COPY ./*.sh .
+RUN chmod +x *.sh
+
+COPY ./configurations ./configurations
+RUN chmod +x ./configurations/*.sh
 
 # Download and setup built riscv64 toolchain version 13.2.0
 RUN wget https://github.com/bao-project/bao-riscv-toolchain/releases/download/gc891d8dc23e/riscv64-unknown-elf-13.2.0-ubuntu-22.04.tar.gz
@@ -75,27 +78,19 @@ RUN git clone https://github.com/bao-project/bao-baremetal-guest.git\
     --branch master $BAREMETAL_SRCS
 
 RUN git -C $BAREMETAL_SRCS apply $PATCHES_DIR/baremetal.patch
-RUN make -C $BAREMETAL_SRCS PLATFORM=qemu-riscv64-virt
 
-RUN mkdir -p $BUILD_GUESTS_DIR/baremetal-setup
-RUN cp $BAREMETAL_SRCS/build/qemu-riscv64-virt/baremetal.bin \
-    $BUILD_GUESTS_DIR/baremetal-setup/baremetal.bin
+# Build baremetal configuration
+RUN ./build_baremetal.sh
 
+# Clone BAO
 ENV BAO_SRCS=$ROOT_DIR/bao
 RUN git clone https://github.com/bao-project/bao-hypervisor $BAO_SRCS\
     --branch main
 RUN git -C $BAO_SRCS checkout a1daae75c30c204592bb3d5d9bad1930cf69dcd3
 
-# RUN ./build_bao.sh
+RUN ./build_bao.sh baremetal
 
-RUN make -C $BAO_SRCS\
-    PLATFORM=qemu-riscv64-virt\
-    CONFIG_REPO=$ROOT_DIR/configs\
-    CONFIG=baremetal\
-    CPPFLAGS=-DBAO_WRKDIR_IMGS=$BUILD_GUESTS_DIR
-
-RUN cp $BAO_SRCS/bin/qemu-riscv64-virt/baremetal/bao.bin $BUILD_BAO_DIR/bao.bin
-
+# Install QEMU
 ENV QEMU_DIR=$ROOT_DIR/tools/qemu-riscv64
 RUN git clone https://github.com/qemu/qemu.git $QEMU_DIR --depth 1\
    --branch v7.2.0
