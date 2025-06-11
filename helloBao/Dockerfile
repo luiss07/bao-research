@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip3 install pykwalify packaging pyelftools
+RUN pip3 install pykwalify packaging pyelftools pyserial
 
 RUN git clone https://github.com/bao-project/bao-helloworld.git /bao-helloworld
 
