@@ -3,11 +3,11 @@
 ## Run
 
 ```bash
-docker build -t bao .
+docker build -t baohello .
 # Run the container as it is
-docker run -it --rm bao
+docker run -it --rm baohello
 # Run the container with a mounted configurations directory
-docker run -it --rm -v ./configurations/:/bao-helloworld/configurations/ bao
+docker run -it --rm -v ./configurations/:/bao-helloworld/configurations/ baohello
 ```
 
 ## Configuration
