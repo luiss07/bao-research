@@ -2,11 +2,16 @@
 
 if [ $# -lt 1 ]; then
     echo "Usage: $0 <config_name>"
-    echo "Placement options: [baremetal, baremetal_mod, baremetal-freeRTOS, baremetal-linux, baremetal-linux-shmem]."
+    echo "Configs found in '$ROOR_DIR/configs/'."
     exit 1
 fi
 
-config_file=$1
+config_file=$(basename $1 .c)
+
+if [ ! -f $ROOT_DIR/configs/$config_file.c ]; then
+    echo "File '$config_file.c' not found at '$ROOT_DIR/configs/'!"
+    exit 1
+fi
 
 echo "Building BAO with config ${config_file}." 
 
