@@ -39,11 +39,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Python dependencies
 RUN pip3 install pykwalify packaging pyelftools pyserial
 
-ADD ./ /bao-workdir
+COPY . /bao-workdir
 
 WORKDIR /bao-workdir
 
-COPY ./*.sh .
 RUN chmod +x *.sh
 
 COPY ./configurations ./configurations
@@ -104,5 +103,3 @@ RUN cd $QEMU_DIR && \
 ENV OPENSBI_DIR=$ROOT_DIR/tools/OpenSBI
 RUN git clone https://github.com/bao-project/opensbi.git $OPENSBI_DIR
 RUN git -C $OPENSBI_DIR checkout 4489876e933d8ba0d8bc6c64bae71e295d45faac
-
-# Inside container run: ./run.sh
