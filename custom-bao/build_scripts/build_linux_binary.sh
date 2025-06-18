@@ -7,7 +7,7 @@ fi
 
 if [ $# -lt 1 ]; then
     echo "Usage: $0 <linux_dts>"
-    echo "Looking for dts into '$ROOT_DIR/srcs/devicetrees/qemu-riscv64-virt/'"
+    echo ".dts file must be inside '$ROOT_DIR/srcs/devicetrees/qemu-riscv64-virt/'"
     exit 1
 fi
 

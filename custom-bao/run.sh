@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bash $ROOT_DIR/build_openSBI.sh
+bash $ROOT_DIR/build_scripts/build_openSBI.sh
 
 qemu-system-riscv64 -nographic\
     -M virt -cpu rv64 -m 4G -smp 4\
