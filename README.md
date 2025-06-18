@@ -6,3 +6,17 @@
 - **linux device tree and memory allocation**: [https://github.com/bao-project/bao-helloworld/blob/risc-v/srcs/devicetrees/qemu-riscv64-virt/linux.dts](https://github.com/bao-project/bao-helloworld/blob/risc-v/srcs/devicetrees/qemu-riscv64-virt/linux.dts)
 - **baremetal memory allocation**: [https://github.com/bao-project/bao-baremetal-guest/blob/master/src/platform/qemu-riscv64-virt/inc/plat.h](https://github.com/bao-project/bao-baremetal-guest/blob/master/src/platform/qemu-riscv64-virt/inc/plat.h)
 - **qemu-riscv64 platform (cpus definition)**: [https://github.com/bao-project/bao-hypervisor/blob/main/src/platform/qemu-riscv64-virt/virt_desc.c#L20](https://github.com/bao-project/bao-hypervisor/blob/main/src/platform/qemu-riscv64-virt/virt_desc.c#L20)
+
+# Repo structure
+
+- **bitstreams**: built bitstreams for FPGA genesys 2 board [source](https://github.com/malejo97/cva6-spmp-walkthrough)
+- **custom-bao**: setup to run Bao with custom configurations 
+- **helloBao**: hello world Bao application [source](https://github.com/bao-project/bao-helloworld/tree/risc-v)
+
+# TODOs
+
+- [X] Installation and configuration of Bao
+  - [X] Study of Bao's memory partition: Bao does not allow to overlap memory reagions in any way. 
+  - [X] Permissions: devices IRQs can be assigned only to one Guest, because the IRQ is sent to the Guest by using the IRQ_ID field which is unique. 
+- [X] Hardware setup with CVA6
+- [ ] Design and implementation of a monitor and target VMs
