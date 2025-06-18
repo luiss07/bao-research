@@ -43,9 +43,9 @@ COPY . /bao-workdir
 
 WORKDIR /bao-workdir
 
-RUN chmod +x *.sh
-
 COPY ./configurations ./configurations
+RUN chmod +x *.sh
+RUN chmod +x ./build_scripts/*.sh
 RUN chmod +x ./configurations/*.sh
 
 # Download and setup built riscv64 toolchain version 13.2.0
@@ -79,8 +79,8 @@ RUN git clone https://github.com/bao-project/bao-baremetal-guest.git\
 
 RUN git -C $BAREMETAL_SRCS apply $PATCHES_DIR/baremetal.patch
 
-# Build baremetal configuration
-RUN ./build_baremetal.sh
+# --- BUILD BAREMETAL ---
+RUN ./build_scripts/build_baremetal.sh
 
 # Clone BAO
 ENV BAO_SRCS=$ROOT_DIR/bao
@@ -88,7 +88,8 @@ RUN git clone https://github.com/bao-project/bao-hypervisor $BAO_SRCS\
     --branch main
 RUN git -C $BAO_SRCS checkout a1daae75c30c204592bb3d5d9bad1930cf69dcd3
 
-RUN ./build_bao.sh baremetal
+# --- BUILD BAO ---
+RUN ./build_scripts/build_bao.sh baremetal
 
 # Install QEMU
 ENV QEMU_DIR=$ROOT_DIR/tools/qemu-riscv64
@@ -103,3 +104,6 @@ RUN cd $QEMU_DIR && \
 ENV OPENSBI_DIR=$ROOT_DIR/tools/OpenSBI
 RUN git clone https://github.com/bao-project/opensbi.git $OPENSBI_DIR
 RUN git -C $OPENSBI_DIR checkout 4489876e933d8ba0d8bc6c64bae71e295d45faac
+
+# --- BUILD LINUX QEMU-RISCV64 IMAGE ---
+RUN ./build_scripts/build_linux_image.sh
