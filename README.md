@@ -24,6 +24,8 @@ echo "nameserver 192.168.42.3" > /etc/resolv.conf
 # Repo structure
 
 - **bitstreams**: built bitstreams for FPGA genesys 2 board [source](https://github.com/malejo97/cva6-spmp-walkthrough)
+> [!NOTE]  
+> To use FPGA it is neccessary to install Vivado. After installation Vivado needs the board files for Genesys 2, which can be download from this [guide](https://digilent.com/reference/software/vivado/board-files?redirect=1)
 - **custom-bao**: setup to run Bao with custom configurations 
 - **helloBao**: hello world Bao application [source](https://github.com/bao-project/bao-helloworld/tree/risc-v)
 
@@ -34,3 +36,5 @@ echo "nameserver 192.168.42.3" > /etc/resolv.conf
   - [X] Permissions: devices IRQs can be assigned only to one Guest, because the IRQ is sent to the Guest by using the IRQ_ID field which is unique. 
 - [X] Hardware setup with CVA6
 - [ ] Design and implementation of a monitor and target VMs
+  - [ ] [WiP] Qemu
+  - [ ] FPGA Genesys 2
