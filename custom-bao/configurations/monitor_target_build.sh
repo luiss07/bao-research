@@ -6,7 +6,7 @@ echo "Loading Monitor (baremetal) + Linux (target)!"
 mkdir -p ${BUILD_GUESTS_DIR}/monitor-target-setup
 
 # --- MONITOR (baremetal) ---
-make -C ${ROOT_DIR}/baremetal-monitor PLATFORM=qemu-riscv64-virt
+make -C ${BAREMETAL_SRCS} PLATFORM=qemu-riscv64-virt
 
 cp ${BAREMETAL_SRCS}/build/qemu-riscv64-virt/baremetal.bin \
     ${BUILD_GUESTS_DIR}/monitor-target-setup/baremetal.bin

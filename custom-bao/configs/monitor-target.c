@@ -25,7 +25,7 @@ struct config config = {
                     }
                 },
 
-                .dev_num = 1,
+                .dev_num = 2,
                 .devs =  (struct vm_dev_region[]) {
                     {
                         /* 8250 */
