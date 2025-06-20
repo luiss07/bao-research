@@ -4,4 +4,9 @@
 # Linux building folder
 linux/
 bao/
-baremetal/
+
+# baremetal 
+build/*
+*.o
+*.d
+*.elf
